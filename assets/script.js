@@ -27,8 +27,8 @@ function formatCurrency(value) {
     let fixedValue = fixValue(value);
     let options = {
         useGrouping: false,
-        minimumFractionDigits: 2, // Correção do typo
-        maximumFractionDigits: 2  // Adicionando limite máximo também
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
     };
     let formatter = new Intl.NumberFormat("pt-BR", options);
     return formatter.format(fixedValue);
@@ -39,14 +39,14 @@ function fixValue(value) {
     let fixedValue = value.replace(",", ".");
     let floatValue = parseFloat(fixedValue);
 
-    if (isNaN(floatValue)) { // Verificação correta de NaN
+    if (isNaN(floatValue)) {
         floatValue = 0;
     }
     return floatValue;
 }
 
 function convert(type) {
-    if (type === "usd-to-brl") {
+    if (type == "usd-to-brl") {
         let fixedValue = fixValue(usdInput.value)
         let result = fixedValue * dolar
         result = result.toFixed(2)
@@ -54,7 +54,7 @@ function convert(type) {
         brlInput.value = formatCurrency(result)
     }
 
-    if (type === "brl-to-usd") {
+    if (type == "brl-to-usd") {
         let fixedValue = fixValue(brlInput.value)
         let result = fixedValue / dolar
         result = result.toFixed(2)
