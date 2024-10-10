@@ -1,4 +1,19 @@
-let dolar = 5.1;
+  //http://docs.awesomeapi.com.br/
+
+const moedas = 'USD-BRL'
+
+const getDolar = async () => {
+    const result = await fetch(`https://economia.awesomeapi.com.br/json/last/${moedas}`, {
+        method: 'GET',
+        headers:  {
+            'Accept': 'application/json',
+            'Accept-Charset': 'utf-8'
+        }
+    })
+    const json = await result.json()
+    const dolar = json.USDBRL['bid']
+    return dolar
+}
 
 let usdInput = document.querySelector("#usd");
 let brlInput = document.querySelector("#brl");
@@ -45,7 +60,8 @@ function fixValue(value) {
     return floatValue;
 }
 
-function convert(type) {
+async function convert(type) {
+    const dolar = await getDolar()
     if (type == "usd-to-brl") {
         let fixedValue = fixValue(usdInput.value)
         let result = fixedValue * dolar
